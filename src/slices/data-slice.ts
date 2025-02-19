@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fileExplorerData } from "../mock-data/mock-data";
+import { FolderState } from "../types/types";
 
-interface CounterState {
-  data: any;
-}
-
-const initialState: CounterState = {
+const initialState: FolderState = {
   data: fileExplorerData,
+  currentFolder: {
+    folderName: fileExplorerData?.name ?? "",
+    folderItems: fileExplorerData?.items ?? [],
+  },
 };
 
 const dataSlice = createSlice({
@@ -16,8 +17,11 @@ const dataSlice = createSlice({
     setData: (state, action) => {
       state.data = action.payload;
     },
+    setCurrentFolder: (state, action) => {
+      state.currentFolder = action.payload;
+    },
   },
 });
 
-export const { setData } = dataSlice.actions;
+export const { setData, setCurrentFolder } = dataSlice.actions;
 export default dataSlice.reducer;
